@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR" style="scroll-behavior: smooth;">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PropWealth.ai | Elite AI Real Estate Investment Intelligence</title>
+    <meta name="description" content="PropWealth.ai leverages advanced AI to transform real estate investing. Automate BRRRR analysis, identify forced appreciation, and optimize global taxes. The next generation of PropTech for elite investors." />
+    <meta name="keywords" content="Real Estate AI, Property Investment, BRRRR Strategy, Real Estate Analytics, PropTech, Wealth Management, Financial Freedom, Real Estate ROI, Global Real Estate, Investment Automation" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #020617;
+        color: #f8fafc;
+        margin: 0;
+        overflow-x: hidden;
+      }
+      .neon-glow-blue {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+      }
+      .neon-glow-emerald {
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+      }
+      .glass-card {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeOut {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(-10px); }
+      }
+      @keyframes bounceIn {
+        0% { opacity: 0; transform: scale(0.3); }
+        50% { opacity: 1; transform: scale(1.05); }
+        70% { transform: scale(0.9); }
+        100% { transform: scale(1); }
+      }
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(-15px, 20px); }
+      }
+      @keyframes float-reverse {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(20px, -15px); }
+      }
+      @keyframes revealWord {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .animate-gradient-shift {
+        animation: gradientShift 3s ease infinite;
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+      .animate-fade-out {
+        animation: fadeOut 0.8s ease-in forwards;
+      }
+      .animate-bounce-in {
+        animation: bounceIn 0.6s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
+      }
+      .animate-float {
+        animation: float 40s ease-in-out infinite;
+      }
+      .animate-float-reverse {
+        animation: float-reverse 50s ease-in-out infinite;
+      }
+      .animate-reveal-word {
+        opacity: 0;
+        animation: revealWord 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .reveal-hidden {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      @keyframes subtlePulse {
+        0% { 
+          box-shadow: 0 0 15px rgba(16, 185, 129, 0.4), 0 0 5px rgba(59, 130, 246, 0.2); 
+          transform: scale(1); 
+        }
+        50% { 
+          box-shadow: 0 0 30px rgba(16, 185, 129, 0.7), 0 0 15px rgba(59, 130, 246, 0.4); 
+          transform: scale(1.02); 
+        }
+        100% { 
+          box-shadow: 0 0 15px rgba(16, 185, 129, 0.4), 0 0 5px rgba(59, 130, 246, 0.2); 
+          transform: scale(1); 
+        }
+      }
+      /* Pulsa apenas se não estiver desabilitado */
+      .hover-pulse-neon:not(:disabled):hover {
+        animation: subtlePulse 1.5s infinite ease-in-out;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
