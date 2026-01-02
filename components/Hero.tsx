@@ -20,12 +20,12 @@ export const Hero: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Normalize scroll between 0 and 600px
-      const progress = Math.min(window.scrollY / 600, 1);
+      // Normalize scroll between 0 and 800px for a smoother parallax feel
+      const progress = Math.min(window.scrollY / 800, 1);
       setScrollProgress(progress);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -69,7 +69,7 @@ export const Hero: React.FC = () => {
     }, 1500);
   };
 
-  // Helper to render words with delay
+  // Helper to render words with delay and parallax effects
   const renderAnimatedTitle = () => {
     const title = t('heroTitle');
     const sentences = title.split('. ');
@@ -82,11 +82,23 @@ export const Hero: React.FC = () => {
       
       const sentenceContent = words.map((word, wIdx) => {
         wordCounter++;
+        // Calculate a unique parallax speed for each word to create depth
+        const parallaxFactor = 15 + (wordCounter % 4) * 25;
+        const translateY = -scrollProgress * parallaxFactor;
+        const blur = scrollProgress * 15;
+        const opacity = Math.max(0, 1 - scrollProgress * 1.8);
+
         return (
           <span 
             key={`${sIdx}-${wIdx}`} 
-            className="inline-block animate-reveal-word" 
-            style={{ animationDelay: `${wordCounter * 60}ms` }}
+            className="inline-block animate-reveal-word will-change-transform" 
+            style={{ 
+              animationDelay: `${wordCounter * 70}ms`,
+              transform: `translateY(${translateY}px)`,
+              opacity: opacity,
+              filter: `blur(${blur}px)`,
+              transition: 'transform 0.1s ease-out, filter 0.1s ease-out, opacity 0.1s ease-out'
+            }}
           >
             {word}&nbsp;
           </span>
@@ -109,13 +121,13 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative pt-24 pb-16 md:pt-48 md:pb-32 overflow-hidden px-4 sm:px-6">
+    <section className="relative pt-24 pb-16 md:pt-48 md:pb-32 overflow-hidden px-4 sm:px-6 perspective-1000">
       {/* Dynamic Scroll-Reacting Backgrounds */}
       <div 
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[400px] bg-emerald-500/20 blur-[140px] -z-10 rounded-full transition-all duration-300 ease-out pointer-events-none"
         style={{
           opacity: 0.3 + (scrollProgress * 0.4),
-          transform: `translate(-50%, -50%) scale(${1 + scrollProgress * 0.3}) translateY(${scrollProgress * 100}px)`,
+          transform: `translate(-50%, -50%) scale(${1 + scrollProgress * 0.3}) translateY(${scrollProgress * 150}px)`,
           filter: `blur(${120 + scrollProgress * 60}px)`
         }}
       ></div>
@@ -128,7 +140,10 @@ export const Hero: React.FC = () => {
       ></div>
 
       <div className="container mx-auto relative z-10 text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-slate-900/50 border border-emerald-500/30 mb-6 md:mb-8 animate-fade-in-up">
+        <div 
+          className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-slate-900/50 border border-emerald-500/30 mb-6 md:mb-8 animate-fade-in-up transition-transform duration-300"
+          style={{ transform: `translateY(${-scrollProgress * 40}px)`, opacity: 1 - scrollProgress * 2 }}
+        >
           <div className="flex -space-x-1.5 md:-space-x-2">
             {investorAvatars.map((url, i) => (
               <img key={i} src={url} alt="Investor" className="w-5 h-5 md:w-6 md:h-6 rounded-full border-2 border-slate-950 object-cover" />
@@ -139,19 +154,30 @@ export const Hero: React.FC = () => {
           </span>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-white mb-6 min-h-[3em]">
+        <h1 
+          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-white mb-6 min-h-[3em] perspective-1000"
+        >
           {renderAnimatedTitle()}
         </h1>
         
-        <p className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-slate-400 mb-8 md:mb-10 leading-relaxed font-light px-2 sm:px-0">
+        <p 
+          className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-slate-400 mb-8 md:mb-10 leading-relaxed font-light px-2 sm:px-0 transition-all duration-300"
+          style={{ transform: `translateY(${-scrollProgress * 60}px)`, opacity: 1 - scrollProgress * 1.5 }}
+        >
           {t('heroSubtitle')}
         </p>
 
         {!submitted ? (
-          <div className="max-w-xl mx-auto w-full">
+          <div 
+            className="max-w-xl mx-auto w-full transition-all duration-300"
+            style={{ transform: `translateY(${-scrollProgress * 80}px)`, opacity: 1 - scrollProgress * 1.2 }}
+          >
             <form 
               onSubmit={handleSubmit} 
-              className={`flex flex-col gap-3 p-2 md:p-2.5 rounded-2xl bg-slate-900/50 backdrop-blur-md border transition-all duration-300 ${error ? 'border-red-500/50 shadow-[0_0_20px_rgba(239,68,68,0.15)]' : 'border-white/10'} glass-card`}
+              className={`flex flex-col gap-3 p-2 md:p-2.5 rounded-2xl bg-slate-900/50 backdrop-blur-md border transition-all duration-500 
+                focus-within:-translate-y-2 focus-within:border-emerald-500/40 focus-within:shadow-[0_0_50px_rgba(16,185,129,0.2)]
+                ${error ? 'border-red-500/50 shadow-[0_0_20px_rgba(239,68,68,0.15)]' : 'border-white/10'} 
+                glass-card`}
             >
               <div className="relative flex-grow flex items-center">
                 <div className="absolute left-4 text-slate-500 pointer-events-none">
@@ -172,7 +198,7 @@ export const Hero: React.FC = () => {
               <button 
                 type="submit" 
                 disabled={isLoading} 
-                className="w-full py-4 bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-400 hover:to-blue-500 text-slate-950 font-bold rounded-xl transition-all shadow-xl shadow-emerald-500/20 active:scale-[0.98] whitespace-nowrap flex items-center justify-center disabled:opacity-50 disabled:cursor-wait text-base md:text-lg hover-pulse-neon"
+                className="w-full py-4 bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-400 hover:to-blue-500 text-slate-950 font-bold rounded-xl transition-all shadow-xl shadow-emerald-500/20 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] active:scale-[0.98] whitespace-nowrap flex items-center justify-center disabled:opacity-50 disabled:cursor-wait text-base md:text-lg"
               >
                 {isLoading ? "..." : t('heroCTA')}
               </button>
